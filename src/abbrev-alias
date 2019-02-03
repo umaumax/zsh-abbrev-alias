@@ -17,6 +17,16 @@ __abbrev_alias::magic_abbrev_expand() {
   fi
   LBUFFER+=$newbuffer
   zle self-insert
+  # NOTE: expand without space
+  if [[ ! $abbr =~ ^\  ]]; then
+    if set -o | grep -q "nobeep.*off"; then
+      setopt nobeep
+    zle backward-char
+      setopt beep
+    else
+    zle backward-char
+    fi
+  fi
 }
 
 __abbrev_alias::no_magic_abbrev_expand() {
