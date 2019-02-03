@@ -15,17 +15,26 @@ __abbrev_alias::magic_abbrev_expand() {
   elif [[ $kind == "c" && $LBUFFER != "" ]]; then
     newbuffer=$MATCH
   fi
+
+  # NOTE: search 'cursor position'
+  local t=$newbuffer
+  local searchstring='\%#'
+  local rest=${t#*$searchstring}
+  local index=$((${#t} - ${#rest} - ${#searchstring}))
+  if [[ $index -ge 0 ]]; then
+    # bash
+    # local newbuffer="${t/$(printf %q $searchstring)/}"
+    # zsh
+    local newbuffer="${t/$searchstring/}"
+  fi
   LBUFFER+=$newbuffer
   zle self-insert
+  if [[ $index -ge 0 ]]; then
+    CURSOR=$(($CURSOR-${#rest}))
+  fi
   # NOTE: expand without space
   if [[ ! $abbr =~ ^\  ]]; then
-    if set -o | grep -q "nobeep.*off"; then
-      setopt nobeep
     zle backward-char
-      setopt beep
-    else
-    zle backward-char
-    fi
   fi
 }
 
