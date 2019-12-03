@@ -49,3 +49,5 @@ options:
   -h, --help      show this help
   -v, --version   show version
 ```
+
+* `$ZSH_ABBREV_ALIAS_NO_LAST_SPACE`: remove last space when expanded

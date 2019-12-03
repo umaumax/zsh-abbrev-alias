@@ -33,7 +33,7 @@ __abbrev_alias::magic_abbrev_expand() {
     CURSOR=$(($CURSOR-${#rest}))
   fi
   # NOTE: expand without space
-  if [[ ! $abbr =~ ^\  ]]; then
+  if [[ -n $ZSH_ABBREV_ALIAS_NO_LAST_SPACE ]] && [[ ! $abbr =~ ^\  ]]; then
     zle backward-delete-char
   fi
 }
