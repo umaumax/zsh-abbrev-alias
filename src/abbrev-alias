@@ -34,7 +34,7 @@ __abbrev_alias::magic_abbrev_expand() {
   fi
   # NOTE: expand without space
   if [[ ! $abbr =~ ^\  ]]; then
-    zle backward-char
+    zle backward-delete-char
   fi
 }
 
