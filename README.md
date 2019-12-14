@@ -3,6 +3,9 @@ This zsh plugin provides functionality similar to Vim's abbreviation expansion.
 
 This plugin consulted http://zshwiki.org/home/examples/zleiab .
 
+## TODO
+* [ ] Add `--exapnd-only` flag for alias with cursor
+
 ## Installation
 ### Using [zplug](https://github.com/b4b4r07/zplug)
 
