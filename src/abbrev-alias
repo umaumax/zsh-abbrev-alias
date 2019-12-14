@@ -26,14 +26,17 @@ __abbrev_alias::magic_abbrev_expand() {
     # local newbuffer="${t/$(printf %q $searchstring)/}"
     # zsh
     local newbuffer="${t/$searchstring/}"
+    # NOTE: trim last space
+    local newbuffer="${newbuffer% }"
   fi
   LBUFFER+=$newbuffer
   zle self-insert
   if [[ $index -ge 0 ]]; then
-    CURSOR=$(($CURSOR-${#rest}))
+    # NOTE: 1 means last ' '
+    CURSOR=$(($CURSOR-${#rest}-1))
   fi
   # NOTE: expand without space
-  if [[ -n $ZSH_ABBREV_ALIAS_NO_LAST_SPACE ]] && [[ ! $abbr =~ ^\  ]]; then
+  if [[ $index -lt 0 ]] && [[ -n $ZSH_ABBREV_ALIAS_NO_LAST_SPACE ]] && [[ ! $abbr =~ ^\  ]]; then
     zle backward-delete-char
   fi
 }
